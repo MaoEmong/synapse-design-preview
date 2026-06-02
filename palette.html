@@ -7,190 +7,249 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
   :root{
-    --primary:#7C3AED; --accent:#EC4899; --due:#FB7185;
-    --primary-hover:#6D28D9; --primary-12:rgba(124,58,237,.12); --primary-08:rgba(124,58,237,.08);
-    --accent-08:rgba(236,72,153,.08); --due-12:rgba(251,113,133,.12);
-    /* 고정 중립/시맨틱 (앱 토큰) */
-    --bg:#F6F4FB; --surface:#fff; --surface2:#EFEAF8; --text:#1C1530;
-    --muted:#6E6585; --border:#E8E2F2; --streak:#F59E0B; --success:#16A34A; --info:#2563EB;
+    --primary:#7C3AED;--primary-hover:#6D28D9;--accent:#EC4899;
+    --due:#FB7185;--success:#16A34A;--warning:#F59E0B;--error:#EF4444;--info:#2563EB;--streak:#F59E0B;
+    --bg:#F6F4FB;--surface:#fff;--surface2:#EFEAF8;--text:#1C1530;--muted:#6E6585;--border:#E8E2F2;
+    --primary-12:rgba(124,58,237,.12);--primary-08:rgba(124,58,237,.08);--accent-08:rgba(236,72,153,.08);--due-12:rgba(251,113,133,.12);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"Pretendard Variable",Pretendard,system-ui,sans-serif;background:#0f1117;color:#e7e9ee;-webkit-font-smoothing:antialiased;padding:40px 20px 80px}
-  .wrap{max-width:1100px;margin:0 auto}
-  h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
-  .sub{color:#8a93a3;font-size:14px;line-height:1.6;margin-bottom:6px}
-  .back{display:inline-block;color:#cbd5e1;text-decoration:none;font-size:13px;font-weight:700;margin-bottom:18px}
+  body{font-family:"Pretendard Variable",Pretendard,system-ui,sans-serif;background:#0f1117;color:#e7e9ee;-webkit-font-smoothing:antialiased;padding:34px 20px 80px}
+  .wrap{max-width:1240px;margin:0 auto}
+  h1{font-size:25px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+  .sub{color:#8a93a3;font-size:13.5px;line-height:1.6;margin-bottom:6px}
+  .back{display:inline-block;color:#cbd5e1;text-decoration:none;font-size:13px;font-weight:700;margin-bottom:16px}
   .back:hover{color:#fff}
-  .layout{display:grid;grid-template-columns:340px 1fr;gap:22px;align-items:start}
-  @media (max-width:880px){.layout{grid-template-columns:1fr}}
+  .layout{display:grid;grid-template-columns:330px 1fr;gap:20px;align-items:start}
+  @media (max-width:920px){.layout{grid-template-columns:1fr}}
 
   /* ── 컨트롤 패널 ── */
-  .panel{background:#191d26;border:1px solid #2a313e;border-radius:16px;padding:20px;position:sticky;top:20px}
-  .panel h2{font-size:13px;font-weight:800;color:#cbd5e1;text-transform:uppercase;letter-spacing:.06em;margin:0 0 12px}
-  .ctl{margin-bottom:14px}
-  .ctl label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
-  .ctl .hint{color:#6b7280;font-size:11.5px;font-weight:500;margin-left:6px}
-  .row{display:flex;gap:8px;align-items:center}
-  input[type=color]{width:42px;height:38px;border:1px solid #2a313e;border-radius:9px;background:#0f1117;padding:3px;cursor:pointer}
-  input[type=text]{flex:1;height:38px;border:1px solid #2a313e;border-radius:9px;background:#0f1117;color:#e7e9ee;padding:0 11px;font:600 13px/1 ui-monospace,monospace;letter-spacing:.5px}
-  input[type=text]:focus{outline:none;border-color:#4b5563}
-  .presets{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-  .preset{display:flex;gap:3px;padding:5px;border:1px solid #2a313e;border-radius:9px;background:#0f1117;cursor:pointer;transition:border-color .12s}
+  .panel{background:#191d26;border:1px solid #2a313e;border-radius:16px;padding:18px;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}
+  .panel h2{font-size:11px;font-weight:800;color:#8a93a3;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 9px}
+  .panel h2:first-child{margin-top:0}
+  .crow{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+  .crow input[type=color]{width:34px;height:32px;border:1px solid #2a313e;border-radius:8px;background:#0f1117;padding:3px;cursor:pointer;flex:none}
+  .crow .lbl{flex:1;min-width:0}
+  .crow .lbl b{display:block;font-size:12.5px;font-weight:700;line-height:1.2}
+  .crow .lbl span{font-size:10.5px;color:#6b7280}
+  .crow input[type=text]{width:84px;height:32px;border:1px solid #2a313e;border-radius:8px;background:#0f1117;color:#e7e9ee;padding:0 8px;font:600 11.5px/1 ui-monospace,monospace;letter-spacing:.4px;flex:none;text-align:center}
+  .crow input[type=text]:focus{outline:none;border-color:#4b5563}
+  .presets{display:flex;flex-wrap:wrap;gap:7px}
+  .preset{display:flex;gap:3px;padding:5px;border:1px solid #2a313e;border-radius:8px;background:#0f1117;cursor:pointer}
   .preset:hover{border-color:#6b7280}
-  .preset i{width:16px;height:22px;border-radius:4px;display:block}
-  .preset .pn{font-size:10px;color:#8a93a3;align-self:center;margin-left:4px;font-weight:600}
-  .exp{margin-top:16px}
-  pre{background:#0b0d12;border:1px solid #2a313e;border-radius:10px;padding:12px;font:500 11.5px/1.65 ui-monospace,monospace;color:#b9c2d0;overflow:auto;white-space:pre}
-  .btns{display:flex;gap:8px;margin-top:10px}
-  button.act{flex:1;height:38px;border:none;border-radius:9px;background:#2a313e;color:#e7e9ee;font:700 12.5px/1 inherit;cursor:pointer;transition:background .12s}
+  .preset i{width:14px;height:20px;border-radius:3px;display:block}
+  .preset .pn{font-size:9.5px;color:#8a93a3;align-self:center;margin-left:3px;font-weight:600}
+  pre{background:#0b0d12;border:1px solid #2a313e;border-radius:10px;padding:11px;font:500 11px/1.6 ui-monospace,monospace;color:#b9c2d0;overflow:auto;white-space:pre;max-height:240px}
+  .btns{display:flex;gap:7px;margin-top:9px}
+  button.act{flex:1;height:36px;border:none;border-radius:8px;background:#2a313e;color:#e7e9ee;font:700 12px/1 inherit;cursor:pointer}
   button.act:hover{background:#3a4150}
   button.act.ok{background:var(--primary)}
-  .copied{color:#34d399;font-size:12px;font-weight:700;margin-top:8px;height:14px}
+  .copied{color:#34d399;font-size:12px;font-weight:700;margin-top:7px;height:14px}
 
-  /* ── 미리보기 (Synapse 라이트 목업) ── */
-  .preview{background:var(--bg);border:1px solid #2a313e;border-radius:16px;padding:0;overflow:hidden}
-  .pv-pad{padding:18px}
-  .pv-note{padding:9px 16px;background:#11151d;color:#6b7280;font-size:11.5px;border-bottom:1px solid #2a313e}
-  /* app bar */
-  .appbar{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--border)}
-  .orb{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:14px;background:linear-gradient(135deg,var(--accent),var(--primary));box-shadow:0 4px 12px var(--primary-12)}
-  .brand{font-weight:800;color:var(--text);font-size:16px;letter-spacing:-.3px}
+  /* ── 미리보기: 실제 홈(내 보드) 재현 ── */
+  .preview{background:#0b0d12;border:1px solid #2a313e;border-radius:16px;overflow:hidden}
+  .pv-note{padding:8px 16px;background:#11151d;color:#6b7280;font-size:11px;border-bottom:1px solid #2a313e}
+  .app{background:var(--bg);color:var(--text)}
+  /* 앱바 */
+  .appbar{display:flex;align-items:center;gap:10px;padding:11px 16px;background:var(--surface);border-bottom:1px solid var(--border)}
+  .orb{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:13px;background:linear-gradient(135deg,var(--accent),var(--primary));box-shadow:0 4px 12px var(--primary-12)}
+  .brand{font-weight:800;font-size:16px;letter-spacing:-.3px}
   .appbar .sp{flex:1}
-  .icon{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:var(--muted)}
-  /* layout under bar */
-  .stage{display:grid;grid-template-columns:150px 1fr;min-height:340px}
-  .side{background:var(--surface);border-right:1px solid var(--border);padding:12px 8px}
-  .nav{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:11px;color:var(--muted);font-size:13px;font-weight:700}
-  .nav .d{width:18px;height:18px;border-radius:5px;background:currentColor;opacity:.5}
+  .ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;color:var(--muted);font-size:14px}
+  /* 본문 레이아웃 */
+  .body{display:grid;grid-template-columns:178px 1fr}
+  .side{background:var(--surface);border-right:1px solid var(--border);padding:10px 8px;display:flex;flex-direction:column;gap:1px}
+  .nav{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:10px;color:var(--muted);font-size:12.5px;font-weight:700}
+  .nav .d{width:16px;height:16px;border-radius:4px;background:currentColor;opacity:.45}
   .nav.on{background:var(--primary-12);color:var(--primary)}
   .nav.on .d{opacity:1}
-  .main{padding:16px;display:flex;flex-direction:column;gap:14px}
-  /* AI hero card */
-  .hero{border-radius:16px;padding:2px;background:linear-gradient(135deg,var(--primary),var(--accent))}
-  .hero .in{background:var(--surface);border-radius:14px;padding:14px 16px}
-  .hero .t{font-weight:800;color:var(--text);font-size:15px;margin-bottom:8px}
-  .hero .f{height:34px;border-radius:10px;background:var(--surface2);display:flex;align-items:center;padding:0 12px;color:var(--muted);font-size:12.5px}
-  /* deck card */
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px}
-  .card .ct{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-  .card .ti{font-weight:800;color:var(--text);font-size:14px}
-  .ring{width:34px;height:34px;border-radius:50%;background:conic-gradient(var(--primary) 0 65%,var(--surface2) 65% 100%);display:grid;place-items:center}
-  .ring::after{content:"65%";font-size:8px;font-weight:800;color:var(--primary);background:var(--surface);width:24px;height:24px;border-radius:50%;display:grid;place-items:center}
-  .meta{display:flex;gap:8px;align-items:center;margin-bottom:10px}
-  .pill{font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px}
+  .sec{font-size:9.5px;font-weight:800;color:var(--muted);letter-spacing:.06em;padding:12px 10px 5px}
+  .recent{display:flex;align-items:center;gap:8px;padding:6px 10px}
+  .recent .ro{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--primary));flex:none}
+  .recent span{font-size:11px;color:var(--text);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pf{display:flex;align-items:center;gap:8px;margin-top:auto;padding:10px;border-top:1px solid var(--border)}
+  .pf .pa{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--primary));flex:none}
+  .pf b{font-size:11.5px;font-weight:800;display:block}
+  .pf span{font-size:10px;color:var(--primary);font-weight:700}
+  /* 메인 */
+  .main{padding:16px 18px;display:flex;flex-direction:column;gap:13px}
+  .vsub{font-size:12px;color:var(--muted);font-weight:600}
+  .vrow{display:flex;align-items:flex-end;justify-content:space-between;margin-top:2px}
+  .vtitle{font-size:21px;font-weight:800;letter-spacing:-.5px}
+  .edit{font-size:12px;font-weight:700;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:7px 13px}
+  /* AI 질문 히어로 */
+  .hero{border-radius:18px;padding:2px;background:linear-gradient(135deg,var(--primary),var(--accent))}
+  .hero .in{background:var(--surface);border-radius:16px;padding:15px 17px}
+  .hlabel{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800;color:var(--primary);margin-bottom:9px}
+  .hlabel .ho{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--primary));display:grid;place-items:center;color:#fff;font-size:10px}
+  .hq{font-size:18px;font-weight:800;margin-bottom:11px}
+  .hfield{border:1.5px solid var(--primary);border-radius:13px;padding:12px 14px;background:var(--surface);display:flex;flex-direction:column;gap:14px}
+  .hfield .ph{font-size:12.5px;color:var(--muted)}
+  .hfield .frow{display:flex;align-items:center}
+  .hfield .frow .ti{color:var(--muted);font-size:13px;letter-spacing:3px}
+  .hfield .frow .sp{flex:1}
+  .hfield .go{width:34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:15px}
+  /* 타일 그리드 */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .tile{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px}
+  .tile.tint{background:linear-gradient(135deg,var(--accent-08),var(--surface))}
+  .th{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:800;color:var(--muted);margin-bottom:9px}
+  .big{font-size:26px;font-weight:800;line-height:1}
+  .big.amber{color:var(--streak)}
+  .tsub{font-size:11px;color:var(--muted);margin-top:6px}
+  .startpill{display:inline-block;margin-top:10px;background:var(--primary);color:#fff;font-size:11px;font-weight:800;padding:6px 13px;border-radius:999px}
+  .suggest{background:linear-gradient(135deg,var(--accent-08),var(--surface));border-radius:11px;padding:10px 11px;margin-top:2px}
+  .suggest .st{font-size:12.5px;font-weight:800}
+  .suggest .sd{font-size:10.5px;color:var(--muted);margin:3px 0 7px;line-height:1.4}
+  .link{font-size:11px;font-weight:800;color:var(--primary)}
+  .stats{display:flex;gap:8px}
+  .stat{flex:1;text-align:center;background:var(--surface2);border-radius:10px;padding:9px 4px}
+  .stat .v{font-size:17px;font-weight:800}
+  .stat .v.g{color:var(--success)}
+  .stat .v.p{color:var(--primary)}
+  .stat .k{font-size:9.5px;color:var(--muted);margin-top:2px}
+  /* 복습 보드 미니 (due/시맨틱 노출) */
+  .deck{display:flex;gap:12px;align-items:center}
+  .ring{width:40px;height:40px;border-radius:50%;background:conic-gradient(var(--primary) 0 65%,var(--surface2) 65%);display:grid;place-items:center;flex:none}
+  .ring::after{content:"65%";font-size:8px;font-weight:800;color:var(--primary);background:var(--surface);width:30px;height:30px;border-radius:50%;display:grid;place-items:center}
+  .deck .di{flex:1}
+  .deck .dt{font-size:13px;font-weight:800}
+  .pill{display:inline-block;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:999px}
   .pill.due{color:var(--due);background:var(--due-12)}
-  .pill.muted{color:var(--muted);background:var(--surface2)}
-  .bar{height:7px;border-radius:999px;background:var(--surface2);overflow:hidden;margin-bottom:12px}
-  .bar i{display:block;height:100%;width:55%;background:var(--primary)}
+  .pill.mut{color:var(--muted);background:var(--surface2)}
+  .bar{height:7px;border-radius:999px;background:var(--surface2);overflow:hidden;margin:8px 0}
+  .bar i{display:block;height:100%;width:65%;background:var(--primary)}
   .acts{display:flex;gap:8px}
-  .btn{height:34px;border-radius:10px;font-size:12.5px;font-weight:800;display:grid;place-items:center;flex:1}
+  .btn{height:32px;border-radius:9px;font-size:12px;font-weight:800;display:grid;place-items:center;flex:1}
   .btn.fill{background:var(--primary);color:#fff}
   .btn.out{border:1px solid var(--border);color:var(--text);background:var(--surface)}
-  /* chips */
-  .chips{display:flex;gap:7px;flex-wrap:wrap}
-  .chip{font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;border:1px solid var(--border);color:var(--text);background:var(--surface)}
-  .chip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
-  /* kanban strips */
-  .kan{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-  .col{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .kan{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+  .col{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
   .col .top{height:4px}
-  .col .h{font-size:11px;font-weight:800;color:var(--text);padding:8px 10px 4px}
-  .col .b{font-size:10px;color:var(--muted);padding:0 10px 10px}
-  /* small tiles row */
-  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .tile{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px}
-  .tile .k{font-size:11px;color:var(--muted);font-weight:700;display:flex;gap:5px;align-items:center}
-  .tile .v{font-size:22px;font-weight:800;color:var(--text);margin-top:4px}
-  .tile .v.streak{color:var(--streak)}
-  .tile .v.due{color:var(--due)}
-  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:2px}
-  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+  .col .h{font-size:10.5px;font-weight:800;padding:7px 8px 3px}
+  .col .b{font-size:9px;color:var(--muted);padding:0 8px 8px}
+  .badges{display:flex;gap:7px;flex-wrap:wrap}
+  .badge{font-size:10.5px;font-weight:800;padding:4px 10px;border-radius:999px;color:#fff}
 </style>
 </head>
 <body>
 <div class="wrap">
   <a class="back" href="./">← 컨셉 갤러리로</a>
   <h1>Synapse · 컬러 팔레트 선택기</h1>
-  <p class="sub">Primary(메인)·Accent(강조)·Due(복습 대기/마감) 세 색을 바꾸면 아래 Synapse 대표 화면이 실시간으로 입혀집니다.</p>
-  <p class="sub">마음에 드는 조합을 고른 뒤 <b>① Dart 코드 복사</b>로 개발자에게 전달하거나, <b>② 링크 복사</b>로 팀에 공유하세요. 중립색·배경은 고정입니다.</p>
+  <p class="sub">왼쪽에서 앱의 컬러 토큰 15개를 직접 바꾸면, 오른쪽 <b>실제 홈(내 보드) 화면</b>이 즉시 그 색으로 입혀집니다.</p>
+  <p class="sub">마음에 드는 조합을 <b>① Dart 코드 복사</b>로 개발자에게 전달하거나 <b>② 링크 복사</b>로 팀에 공유하세요.</p>
 
   <div class="layout">
     <!-- 컨트롤 -->
     <div class="panel">
-      <h2>색 선택</h2>
-      <div class="ctl">
-        <label>Primary <span class="hint">버튼·활성·링크</span></label>
-        <div class="row"><input type="color" id="cp" value="#7C3AED"><input type="text" id="tp" value="#7C3AED"></div>
-      </div>
-      <div class="ctl">
-        <label>Accent <span class="hint">orb·그라데이션·강조</span></label>
-        <div class="row"><input type="color" id="ca" value="#EC4899"><input type="text" id="ta" value="#EC4899"></div>
-      </div>
-      <div class="ctl">
-        <label>Due <span class="hint">복습 대기·마감 (M2)</span></label>
-        <div class="row"><input type="color" id="cd" value="#FB7185"><input type="text" id="td" value="#FB7185"></div>
-      </div>
+      <h2>브랜드</h2><div id="g-brand"></div>
+      <h2>시맨틱 (상태색)</h2><div id="g-semantic"></div>
+      <h2>중립 · 표면</h2><div id="g-neutral"></div>
 
-      <h2 style="margin-top:18px">프리셋 (시작점)</h2>
+      <h2>프리셋 (브랜드 시작점)</h2>
       <div class="presets" id="presets"></div>
 
-      <div class="exp">
-        <h2 style="margin-top:18px">내보내기 · AppColors</h2>
-        <pre id="code"></pre>
-        <div class="btns">
-          <button class="act ok" id="copyCode">Dart 코드 복사</button>
-          <button class="act" id="copyLink">링크 복사</button>
-          <button class="act" id="reset">현재값</button>
-        </div>
-        <div class="copied" id="copied"></div>
+      <h2>내보내기 · AppColors</h2>
+      <pre id="code"></pre>
+      <div class="btns">
+        <button class="act ok" id="copyCode">Dart 코드 복사</button>
+        <button class="act" id="copyLink">링크 복사</button>
+        <button class="act" id="reset">초기화</button>
       </div>
+      <div class="copied" id="copied"></div>
     </div>
 
-    <!-- 미리보기 -->
+    <!-- 미리보기 (실제 홈 재현) -->
     <div class="preview">
-      <div class="pv-note">미리보기 · 실제 앱의 대표 컴포넌트를 재현했습니다 (라이트 모드)</div>
-      <div class="appbar">
-        <div class="orb">✦</div><div class="brand">Synapse</div><div class="sp"></div>
-        <div class="icon">🔍</div><div class="icon">🔔</div><div class="icon">🙂</div>
-      </div>
-      <div class="stage">
-        <div class="side">
-          <div class="nav on"><span class="d"></span>홈</div>
-          <div class="nav"><span class="d"></span>플래너</div>
-          <div class="nav"><span class="d"></span>노트</div>
-          <div class="nav"><span class="d"></span>복습</div>
-          <div class="nav"><span class="d"></span>커뮤니티</div>
+      <div class="pv-note">미리보기 · 실제 홈(내 보드) 화면을 재현했습니다</div>
+      <div class="app">
+        <div class="appbar">
+          <div class="orb">✦</div><div class="brand">Synapse</div><div class="sp"></div>
+          <div class="ic">🔍</div><div class="ic">🔔</div><div class="ic">🙂</div>
         </div>
-        <div class="main">
-          <div class="hero"><div class="in"><div class="t">무엇을 학습해 볼까요?</div><div class="f">질문하거나, 노트를 붙여넣거나…</div></div></div>
-
-          <div class="chips">
-            <span class="chip on">전체</span><span class="chip">머신러닝</span><span class="chip">딥러닝</span><span class="chip">알고리즘</span>
+        <div class="body">
+          <div class="side">
+            <div class="nav on"><span class="d"></span>홈</div>
+            <div class="nav"><span class="d"></span>플래너</div>
+            <div class="nav"><span class="d"></span>노트</div>
+            <div class="nav"><span class="d"></span>복습</div>
+            <div class="nav"><span class="d"></span>그래프</div>
+            <div class="nav"><span class="d"></span>커뮤니티</div>
+            <div class="sec">최근 활동</div>
+            <div class="recent"><span class="ro"></span><span>트랜스포머 복습 카드 4장</span></div>
+            <div class="recent"><span class="ro"></span><span>과적합 약점 미니 퀴즈</span></div>
+            <div class="pf"><span class="pa"></span><div><b>김시냅스</b><span>Lv7 · 지식 탐험가</span></div></div>
           </div>
+          <div class="main">
+            <div>
+              <div class="vsub">오늘도 함께 학습해요</div>
+              <div class="vrow"><div class="vtitle">내 보드</div><div class="edit">✏️ 편집</div></div>
+            </div>
 
-          <div class="card">
-            <div class="ct"><div class="ti">프로그래밍 기초</div><div class="ring"></div></div>
-            <div class="meta"><span class="pill muted">45장</span><span class="pill due">12개 복습 대기</span></div>
-            <div class="bar"><i></i></div>
-            <div class="acts"><div class="btn fill">복습 시작</div><div class="btn out">카드 보기</div></div>
-          </div>
+            <div class="hero"><div class="in">
+              <div class="hlabel"><span class="ho">✦</span> AI 질문</div>
+              <div class="hq">무엇을 학습해 볼까요?</div>
+              <div class="hfield">
+                <div class="ph">질문하거나, 노트를 붙여넣거나, 주제를 입력하세요…</div>
+                <div class="frow"><span class="ti">🎤 💬</span><span class="sp"></span><span class="go">→</span></div>
+              </div>
+            </div></div>
 
-          <div class="kan">
-            <div class="col"><div class="top" style="background:var(--info)"></div><div class="h">수집함</div><div class="b">CAP 정리</div></div>
-            <div class="col"><div class="top" style="background:var(--streak)"></div><div class="h">학습 중</div><div class="b">트랜스포머</div></div>
-            <div class="col"><div class="top" style="background:var(--due)"></div><div class="h">복습 대기</div><div class="b">ML 기초</div></div>
-            <div class="col"><div class="top" style="background:var(--success)"></div><div class="h">완료</div><div class="b">과적합</div></div>
-          </div>
-          <div class="legend">
-            <span><i style="background:var(--info)"></i>수집</span>
-            <span><i style="background:var(--streak)"></i>학습중(앰버)</span>
-            <span><i style="background:var(--due)"></i>복습대기(Due)</span>
-            <span><i style="background:var(--success)"></i>완료</span>
-          </div>
+            <div class="grid2">
+              <div class="tile tint">
+                <div class="th">📚 오늘 복습</div>
+                <div class="big">18장</div>
+                <div class="tsub">복습 대기 12 · 학습 중 4 · 새 카드 2</div>
+                <div class="startpill">시작하기</div>
+              </div>
+              <div class="tile">
+                <div class="th">🦉 AI 추천</div>
+                <div class="suggest">
+                  <div class="st">'과적합' 개념이 약해 보여요</div>
+                  <div class="sd">최근 3번 중 2번 틀렸어요. 관련 노트 3개로 미니 퀴즈를 만들어 드릴까요?</div>
+                  <span class="link">퀴즈 시작 →</span>
+                </div>
+              </div>
+              <div class="tile">
+                <div class="th">📈 이번 주 인사이트</div>
+                <div class="stats">
+                  <div class="stat"><div class="v">152</div><div class="k">복습</div></div>
+                  <div class="stat"><div class="v g">94%</div><div class="k">정답률</div></div>
+                  <div class="stat"><div class="v p">+420</div><div class="k">XP</div></div>
+                </div>
+              </div>
+              <div class="tile">
+                <div class="th">🔥 스트릭</div>
+                <div class="big amber">14일</div>
+                <div class="tsub">최고 21일</div>
+              </div>
+            </div>
 
-          <div class="tiles">
-            <div class="tile"><div class="k">🔥 스트릭</div><div class="v streak">14일</div></div>
-            <div class="tile"><div class="k">오늘 복습</div><div class="v due">18장</div></div>
+            <!-- 복습 덱 + 칸반 (due/시맨틱 색 노출) -->
+            <div class="tile">
+              <div class="deck">
+                <div class="ring"></div>
+                <div class="di">
+                  <div class="dt">프로그래밍 기초</div>
+                  <div style="margin-top:5px"><span class="pill mut">45장</span> <span class="pill due">12개 복습 대기</span></div>
+                </div>
+              </div>
+              <div class="bar"><i></i></div>
+              <div class="acts"><div class="btn fill">복습 시작</div><div class="btn out">카드 보기</div></div>
+            </div>
+
+            <div class="kan">
+              <div class="col"><div class="top" style="background:var(--info)"></div><div class="h">수집함</div><div class="b">CAP 정리</div></div>
+              <div class="col"><div class="top" style="background:var(--streak)"></div><div class="h">학습 중</div><div class="b">트랜스포머</div></div>
+              <div class="col"><div class="top" style="background:var(--due)"></div><div class="h">복습 대기</div><div class="b">ML 기초</div></div>
+              <div class="col"><div class="top" style="background:var(--success)"></div><div class="h">완료</div><div class="b">과적합</div></div>
+            </div>
+
+            <div class="badges">
+              <span class="badge" style="background:var(--success)">성공</span>
+              <span class="badge" style="background:var(--warning)">경고</span>
+              <span class="badge" style="background:var(--error)">오류</span>
+              <span class="badge" style="background:var(--info)">정보</span>
+            </div>
           </div>
         </div>
       </div>
@@ -199,80 +258,105 @@
 </div>
 
 <script>
+// key, cssVar, label, hint, default, group
+const TOKENS = [
+  ['p','--primary','Primary','버튼·활성·링크','#7C3AED','brand'],
+  ['ph','--primary-hover','Primary Hover','눌림·호버','#6D28D9','brand'],
+  ['a','--accent','Accent','orb·그라데이션','#EC4899','brand'],
+  ['d','--due','Due','복습 대기·마감(M2)','#FB7185','semantic'],
+  ['su','--success','Success','성공·완료','#16A34A','semantic'],
+  ['wn','--warning','Warning','경고','#F59E0B','semantic'],
+  ['er','--error','Error','오류','#EF4444','semantic'],
+  ['if','--info','Info','정보·수집','#2563EB','semantic'],
+  ['st','--streak','Streak','연속 학습(앰버)','#F59E0B','semantic'],
+  ['bg','--bg','Background','앱 배경','#F6F4FB','neutral'],
+  ['sf','--surface','Surface','카드·표면','#FFFFFF','neutral'],
+  ['s2','--surface2','Surface2','보조 표면·입력','#EFEAF8','neutral'],
+  ['tx','--text','Text','본문 텍스트','#1C1530','neutral'],
+  ['mu','--muted','Muted','보조 텍스트','#6E6585','neutral'],
+  ['bd','--border','Border','경계선','#E8E2F2','neutral'],
+];
+// Dart 출력 순서/이름 (app_colors.dart 구조)
+const DART = [
+  ['primary','p'],['primaryFg','#FFFFFF'],['accent','a'],
+  ['bg','bg'],['surface','sf'],['surface2','s2'],['text','tx'],['muted','mu'],['border','bd'],
+  ['streak','st'],['primaryHover','ph'],
+  ['success','su'],['warning','wn'],['error','er'],['info','if'],
+  ['due','d'],
+];
 const PRESETS = [
   {n:'현재', p:'#7C3AED', a:'#EC4899', d:'#FB7185'},
   {n:'인디고·틸', p:'#4F46E5', a:'#14B8A6', d:'#F97316'},
   {n:'블루·코랄', p:'#2563EB', a:'#FB7185', d:'#F59E0B'},
   {n:'에메랄드', p:'#059669', a:'#8B5CF6', d:'#F43F5E'},
-  {n:'슬레이트·앰버', p:'#475569', a:'#0EA5E9', d:'#EF4444'},
+  {n:'슬레이트', p:'#475569', a:'#0EA5E9', d:'#EF4444'},
   {n:'딥퍼플·라임', p:'#6D28D9', a:'#84CC16', d:'#FB923C'},
 ];
 
-const $ = id => document.getElementById(id);
-const clamp = (n)=>Math.max(0,Math.min(255,n));
-function norm(hex){ hex=hex.trim().replace(/^#?/,'#'); if(/^#[0-9a-fA-F]{6}$/.test(hex)) return hex.toUpperCase(); return null; }
-function darken(hex,amt){ // amt 0~1
-  const n=parseInt(hex.slice(1),16); let r=(n>>16)&255,g=(n>>8)&255,b=n&255;
-  r=clamp(Math.round(r*(1-amt)));g=clamp(Math.round(g*(1-amt)));b=clamp(Math.round(b*(1-amt)));
-  return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase();
-}
-function rgba(hex,a){ const n=parseInt(hex.slice(1),16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
+const $=id=>document.getElementById(id);
+const state={}; TOKENS.forEach(t=>state[t[0]]=t[4]);
+function norm(h){h=h.trim().replace(/^#?/,'#');return /^#[0-9a-fA-F]{6}$/.test(h)?h.toUpperCase():null;}
+function rgba(hex,a){const n=parseInt(hex.slice(1),16);return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;}
 
-function apply(p,a,d){
+function buildRows(group,host){
+  TOKENS.filter(t=>t[5]===group).forEach(t=>{
+    const [key,,label,hint,def]=t;
+    const row=document.createElement('div');row.className='crow';
+    row.innerHTML=`<input type="color" id="c_${key}" value="${def}">
+      <div class="lbl"><b>${label}</b><span>${hint}</span></div>
+      <input type="text" id="t_${key}" value="${def}">`;
+    host.appendChild(row);
+  });
+}
+buildRows('brand',$('g-brand'));buildRows('semantic',$('g-semantic'));buildRows('neutral',$('g-neutral'));
+
+function applyAll(){
   const r=document.documentElement.style;
-  r.setProperty('--primary',p); r.setProperty('--accent',a); r.setProperty('--due',d);
-  r.setProperty('--primary-hover',darken(p,.12));
-  r.setProperty('--primary-12',rgba(p,.12)); r.setProperty('--primary-08',rgba(p,.08));
-  r.setProperty('--accent-08',rgba(a,.08)); r.setProperty('--due-12',rgba(d,.12));
-  $('cp').value=p;$('tp').value=p;$('ca').value=a;$('ta').value=a;$('cd').value=d;$('td').value=d;
-  renderCode(p,a,d);
-  history.replaceState(null,'',`#p=${p.slice(1)}&a=${a.slice(1)}&d=${d.slice(1)}`);
+  TOKENS.forEach(t=>{ r.setProperty(t[1],state[t[0]]); });
+  r.setProperty('--primary-12',rgba(state.p,.12));
+  r.setProperty('--primary-08',rgba(state.p,.08));
+  r.setProperty('--accent-08',rgba(state.a,.08));
+  r.setProperty('--due-12',rgba(state.d,.12));
+  TOKENS.forEach(t=>{ $('c_'+t[0]).value=state[t[0]]; $('t_'+t[0]).value=state[t[0]]; });
+  renderCode(); syncHash();
 }
-function renderCode(p,a,d){
-  const hex = h => `Color(0xFF${h.slice(1)})`;
-  $('code').textContent =
-`// lib/core/theme/app_colors.dart
-static const Color primary      = ${hex(p)};
-static const Color primaryHover = ${hex(darken(p,.12))};
-static const Color accent       = ${hex(a)};
-// M2 · 복습 대기/마감 전용 토큰 (신규)
-static const Color due          = ${hex(d)};`;
+function renderCode(){
+  const val=k=>k.startsWith('#')?k:state[k];
+  const line=(name,k)=>`static const Color ${name.padEnd(12)}= Color(0xFF${val(k).slice(1)});`;
+  $('code').textContent='// lib/core/theme/app_colors.dart\n'+
+    DART.map(([n,k])=>line(n,k)).join('\n')+
+    '\n// due = M2 복습 대기/마감 전용 신규 토큰';
 }
-function readInputs(){
-  const p=norm($('tp').value)||$('cp').value.toUpperCase();
-  const a=norm($('ta').value)||$('ca').value.toUpperCase();
-  const d=norm($('td').value)||$('cd').value.toUpperCase();
-  apply(p,a,d);
-}
+function syncHash(){ history.replaceState(null,'','#'+TOKENS.map(t=>t[0]+'='+state[t[0]].slice(1)).join('&')); }
 
-// wire color/text inputs
-[['cp','tp'],['ca','ta'],['cd','td']].forEach(([c,t])=>{
-  $(c).addEventListener('input',()=>{$(t).value=$(c).value.toUpperCase();readInputs();});
-  $(t).addEventListener('input',()=>{const v=norm($(t).value); if(v){$(c).value=v;} readInputs();});
+// wire inputs
+TOKENS.forEach(t=>{
+  const key=t[0];
+  document.addEventListener('input',e=>{
+    if(e.target.id==='c_'+key){state[key]=e.target.value.toUpperCase();applyAll();}
+    if(e.target.id==='t_'+key){const v=norm(e.target.value);if(v){state[key]=v;applyAll();}}
+  });
 });
 
-// presets
-const pc=$('presets');
+// presets (브랜드 3색만)
 PRESETS.forEach(ps=>{
   const el=document.createElement('div');el.className='preset';
   el.innerHTML=`<i style="background:${ps.p}"></i><i style="background:${ps.a}"></i><i style="background:${ps.d}"></i><span class="pn">${ps.n}</span>`;
-  el.onclick=()=>apply(ps.p,ps.a,ps.d);
-  pc.appendChild(el);
+  el.onclick=()=>{state.p=ps.p;state.a=ps.a;state.d=ps.d;state.ph=darken(ps.p);applyAll();};
+  $('presets').appendChild(el);
 });
+function darken(hex){const n=parseInt(hex.slice(1),16);let r=(n>>16)&255,g=(n>>8)&255,b=n&255;const f=.88;return '#'+[r,g,b].map(x=>Math.round(x*f).toString(16).padStart(2,'0')).join('').toUpperCase();}
 
-// buttons
-function flash(msg){ $('copied').textContent=msg; setTimeout(()=>$('copied').textContent='',1800); }
-$('copyCode').onclick=()=>{navigator.clipboard.writeText($('code').textContent).then(()=>flash('Dart 코드 복사됨 ✓'));};
-$('copyLink').onclick=()=>{navigator.clipboard.writeText(location.href).then(()=>flash('공유 링크 복사됨 ✓'));};
-$('reset').onclick=()=>apply('#7C3AED','#EC4899','#FB7185');
+function flash(m){$('copied').textContent=m;setTimeout(()=>$('copied').textContent='',1800);}
+$('copyCode').onclick=()=>navigator.clipboard.writeText($('code').textContent).then(()=>flash('Dart 코드 복사됨 ✓'));
+$('copyLink').onclick=()=>navigator.clipboard.writeText(location.href).then(()=>flash('공유 링크 복사됨 ✓'));
+$('reset').onclick=()=>{TOKENS.forEach(t=>state[t[0]]=t[4]);applyAll();};
 
-// init from hash or default
+// init from hash
 (function(){
   const m=new URLSearchParams(location.hash.slice(1));
-  const p=norm('#'+(m.get('p')||''))||'#7C3AED';
-  const a=norm('#'+(m.get('a')||''))||'#EC4899';
-  const d=norm('#'+(m.get('d')||''))||'#FB7185';
-  apply(p,a,d);
+  TOKENS.forEach(t=>{const v=norm('#'+(m.get(t[0])||''));if(v)state[t[0]]=v;});
+  applyAll();
 })();
 </script>
 </body>
